@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="helloWorld" class="com.nikandr.spring.HelloWorld">
+        <property name="name" value="spring zbs"/>
+    </bean>
+    
+    <bean id="vitalyi" class="com.nikandr.spring.Vitaliy">
+        <constructor-arg index="0" value="NIKANDR"/>
+        <constructor-arg index="1" value="1000000000"/>
+        <constructor-arg index="2">
+            <list>
+                <value>Піти в магазин</value>
+                <value>Купити пефка</value>
+                <value>Попити пефка</value>
+                <value>Всьо)</value>
+            </list>
+        </constructor-arg>
+
+    </bean>
+    
+    <bean id="app" class="com.nikandr.spring.App">
+        <constructor-arg ref="vitalyi"/>
+        <property name="helloWorld" ref="helloWorld"/>
+    </bean>
+    
+</beans>
