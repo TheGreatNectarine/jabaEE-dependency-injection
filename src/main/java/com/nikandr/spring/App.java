@@ -1,15 +1,19 @@
 package com.nikandr.spring;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class App {
 
-    private Vitaliy vitaliy;
+    private Person person;
     private HelloWorld helloWorld;
 
-    protected App(Vitaliy vitaliy) {
-        this.vitaliy = vitaliy;
+    protected App(Person person) {
+        this.person = person;
     }
 
     public void setHelloWorld(HelloWorld helloWorld) {
@@ -21,9 +25,19 @@ public class App {
         ApplicationContext context = new ClassPathXmlApplicationContext("SpringBeans.xml");
 
         App app = context.getBean(App.class);
-        app.vitaliy.sayHelloVitalik();
-        app.helloWorld.printHello();
+        app.person.sayHelloVitalik();
 
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.register(AppConfiguration.class);
+        ctx.refresh();
+
+        Profile profile = ctx.getBean(Profile.class);
+        profile.logProfileInfo();
+        profile.shareProfile(new Person(
+                "Olex Mazur",
+                123123123,
+                Arrays.asList("Get info from Nikondr", "sleep")));
+        app.helloWorld.printHello();
     }
 
 }
