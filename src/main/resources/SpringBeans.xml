@@ -4,26 +4,26 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:annotation-config/>
-    <bean id="helloWorld" class="com.nikandr.spring.HelloWorld">
-        <property name="name" value="spring zbs"/>
-    </bean>
+    <!--&lt;!&ndash;<bean id="helloWorld" class="com.nikandr.spring.HelloWorld">&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="name" value="spring zbs"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</bean>&ndash;&gt;-->
 
-    <bean id="personNikondr" class="com.nikandr.spring.Person">
-        <constructor-arg index="0" value="NIKANDR"/>
-        <constructor-arg index="1" value="1000000000"/>
-        <constructor-arg index="2">
-            <list>
-                <value>Піти в магазин</value>
-                <value>Купити пефка</value>
-                <value>Попити пефка</value>
-                <value>Всьо)</value>
-            </list>
-        </constructor-arg>
-    </bean>
+    <!--<bean id="personNikondr" class="com.nikandr.spring.Person">-->
+        <!--<constructor-arg index="0" value="NIKANDR"/>-->
+        <!--<constructor-arg index="1" value="1000000000"/>-->
+        <!--<constructor-arg index="2">-->
+            <!--<list>-->
+                <!--<value>Піти в магазин</value>-->
+                <!--<value>Купити пефка</value>-->
+                <!--<value>Попити пефка</value>-->
+                <!--<value>Всьо)</value>-->
+            <!--</list>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
 
 
-    <bean id="app" class="com.nikandr.spring.App">
-        <constructor-arg ref="personNikondr"/>
-        <property name="helloWorld" ref="helloWorld"/>
-    </bean>
+    <!--<bean id="app" class="com.nikandr.spring.App">-->
+        <!--<constructor-arg ref="personNikondr"/>-->
+        <!--&lt;!&ndash;<property name="helloWorld" ref="helloWorld"/>&ndash;&gt;-->
+    <!--</bean>-->
 </beans>
