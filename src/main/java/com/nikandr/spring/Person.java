@@ -1,6 +1,5 @@
 package com.nikandr.spring;
 
-import java.beans.JavaBean;
 import java.util.List;
 
 public class Person {
