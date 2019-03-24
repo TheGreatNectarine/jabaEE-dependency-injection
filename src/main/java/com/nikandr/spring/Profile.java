@@ -1,10 +1,8 @@
 package com.nikandr.spring;
 
-import javax.validation.constraints.NotNull;
 
 public class Profile {
     private static Integer freeID;
-    @NotNull
     private Person person;
     private Integer id;
 
