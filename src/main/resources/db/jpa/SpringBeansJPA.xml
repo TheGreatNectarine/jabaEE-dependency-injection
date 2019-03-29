@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+              http://www.springframework.org/schema/cache
+              http://www.springframework.org/schema/cache/spring-cache.xsd">
 
-    <!--DB connection properties-->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="jdbc:postgresql://localhost:5432/testjdbc"/>
-        <property name="username" value="postgres"/>
-        <property name="password" value="karpovich"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/javaeejpa"/>
+        <!--<property name="username" value=""/>-->
+        <!--<property name="password" value=""/>-->
         <property name="initialSize" value="5"/>
         <property name="maxTotal" value="10"/>
     </bean>
-
-    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-        <property name="database" value="POSTGRESQL"/>
-        <property name="showSql" value="true"/>
-        <property name="generateDdl" value="false"/>
-        <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect"/>
-    </bean>
-
     <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceXmlLocation" value="db/jpa/persistence.xml"/>
         <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+    </bean>
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="database" value="POSTGRESQL"/>
+        <property name="showSql" value="true"/>
+        <property name="generateDdl" value="false"/>
+        <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
     </bean>
 
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
@@ -34,9 +35,15 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="worker" class="com.nikandr.spring.jdbcJPA.worker.WorkWithLecture"/>
+    <bean id="worker" class="com.nikandr.spring.jdbcJPA.worker.LectureWorker"/>
+    <bean id="teacherWorker" class="com.nikandr.spring.jdbcJPA.worker.TeacherWorker"/>
 
-    <context:component-scan base-package="com.nikandr.spring.jdbcJPA.data"/>
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"
+          p:cache-manager-ref="ehcache"/>
+    <bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+          p:config-location="db/jpa/ehcache.xml" p:shared="true"/>
+
+    <context:component-scan base-package="com.nikandr.spring.jdbcJPA.data.dao"/>
     <tx:annotation-driven/>
-
+    <cache:annotation-driven/>
 </beans>

@@ -5,8 +5,8 @@ import com.nikandr.spring.jdbcJPA.data.entities.Lecture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
-public class WorkWithLecture {
+
+public class LectureWorker {
 
     @Autowired
     LecturesDAO lecturesDAO;

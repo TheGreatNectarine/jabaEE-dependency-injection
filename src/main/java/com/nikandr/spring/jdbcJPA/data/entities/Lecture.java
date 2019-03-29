@@ -1,18 +1,28 @@
 package com.nikandr.spring.jdbcJPA.data.entities;
 
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Lectures")
+@Table(name = "lectures")
 public class Lecture {
     @Id
-    @GeneratedValue
-    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "credits")
     private double credits;
-//Getters and settings
 
+    public Lecture() {
+
+    }
+
+    public Lecture(String name, double credits) {
+        this.name = name;
+        this.credits = credits;
+    }
 
     public int getId() {
         return id;
@@ -36,5 +46,14 @@ public class Lecture {
 
     public void setCredits(double credits) {
         this.credits = credits;
+    }
+
+    @Override
+    public String toString() {
+        return "Lecture{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", credits=" + credits +
+                '}';
     }
 }
